@@ -40,10 +40,11 @@ func player_run(delta):
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if direction != 0 and current_state != State.Jump:
-		current_state = State.Run
+	if direction != 0:
 		animated_sprite_2d.flip_h = false if direction > 0 else true
-
+		if current_state != State.Jump:
+			current_state = State.Run
+		
 func player_animations():
 	if current_state == State.Idle:
 		animated_sprite_2d.play("idle")
@@ -58,10 +59,11 @@ func player_animations():
 			
 func player_jump(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP
 		current_state = State.Jump
+		velocity.y = JUMP
 	if !is_on_floor() and current_state == State.Jump:
 		velocity.x += direction * JUMP_HORIZONTAL * delta
 	# Check if player ended jumping and is falling
 	if velocity.y >= 0 and !is_on_floor():
 		current_state = State.Fall
+		
