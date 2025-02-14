@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chhy54qfwmuk"
-path="res://.godot/imported/Hive.png-c655a0fdbf1b07e87b79f8465f3481cd.ctex"
+uid="uid://x3vriu05ah7i"
+path="res://.godot/imported/Dark-Tree.png-dca06f6f4c0bcb06adbe3948ef41007b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tileset/hive/Hive.png"
-dest_files=["res://.godot/imported/Hive.png-c655a0fdbf1b07e87b79f8465f3481cd.ctex"]
+source_file="res://graphics/tree/Dark-Tree.png"
+dest_files=["res://.godot/imported/Dark-Tree.png-dca06f6f4c0bcb06adbe3948ef41007b.ctex"]
 
 [params]
 

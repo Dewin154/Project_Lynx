@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://decmuvperli2e"
-path="res://.godot/imported/Interior-01.png-d0cb9b35a1fa7d15310cacca35a58db5.ctex"
+uid="uid://du7fh5qbgnbq6"
+path="res://.godot/imported/Red-Tree.png-0ff2702656f7e1fce5f3ed7e3c205f93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tileset/interior/Interior-01.png"
-dest_files=["res://.godot/imported/Interior-01.png-d0cb9b35a1fa7d15310cacca35a58db5.ctex"]
+source_file="res://graphics/tree/Red-Tree.png"
+dest_files=["res://.godot/imported/Red-Tree.png-0ff2702656f7e1fce5f3ed7e3c205f93.ctex"]
 
 [params]
 

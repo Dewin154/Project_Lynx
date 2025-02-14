@@ -8,7 +8,7 @@ const JUMP_HORIZONTAL = 100
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 
-enum State {Idle, Run, Jump, Fall, Attack}
+enum State {Idle, Run, Jump, Fall, Attack, Dead}
 
 var current_state
 var direction
@@ -16,6 +16,7 @@ var jump_animation_already_playing = false
 var fall_animation_already_playing = false
 var is_attacking = false
 var attack_combo_available = false
+var is_dying = false
 
 func _ready() -> void:
 	current_state = State.Idle
@@ -26,8 +27,10 @@ func _physics_process(delta: float) -> void:
 	player_run(delta)
 	player_jump(delta)
 	player_attack(delta)
+	player_dead(delta)
 	move_and_slide()
 	player_animations()
+	#print("State: ", State.keys()[current_state])
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1":
@@ -45,7 +48,7 @@ func player_falling(delta):
 	velocity.y += GRAVITY * delta
 
 func player_idle(delta):
-	if is_on_floor() and !is_attacking:
+	if is_on_floor() and !is_attacking and !is_dying:
 		current_state = State.Idle
 		fall_animation_already_playing = false
 		jump_animation_already_playing = false
@@ -54,9 +57,9 @@ func player_run(delta):
 	if is_attacking:
 		velocity.x = 0
 		return
-	
 	direction = Input.get_axis("move_left", "move_right")
 	if direction:
+		is_dying = false
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -67,7 +70,7 @@ func player_run(delta):
 			current_state = State.Run
 
 func player_animations():
-	if !is_attacking:
+	if !is_attacking and !is_dying:
 		if current_state == State.Idle:
 			animated_sprite_2d.play("idle")
 		elif current_state == State.Run:
@@ -100,3 +103,11 @@ func player_attack(delta):
 			animated_sprite_2d.play("attack1")
 			attack_combo_available = true
 			attack_timer.start()
+			
+func player_dead(delta):
+	# Numpad 9
+	if Input.is_action_just_pressed("die"):
+		is_dying = true
+		current_state = State.Dead
+		animated_sprite_2d.play("dead")
+		
