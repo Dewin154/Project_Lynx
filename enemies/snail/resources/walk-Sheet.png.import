@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br1blyybknf2g"
-path="res://.godot/imported/Run-Sheet.png-47ccc451367628e29921dfe57c386f35.ctex"
+uid="uid://cf68f3xtljp5w"
+path="res://.godot/imported/walk-Sheet.png-bc6fb5e70a31478fce4e205729833a9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/Run-Sheet.png"
-dest_files=["res://.godot/imported/Run-Sheet.png-47ccc451367628e29921dfe57c386f35.ctex"]
+source_file="res://enemies/snail/resources/walk-Sheet.png"
+dest_files=["res://.godot/imported/walk-Sheet.png-bc6fb5e70a31478fce4e205729833a9c.ctex"]
 
 [params]
 

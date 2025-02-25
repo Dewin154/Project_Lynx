@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://86y8e0yug8ls"
-path="res://.godot/imported/Attack-01-Sheet.png-087f8c57419eb24941b1f634ae982532.ctex"
+uid="uid://b4lfmvxennbdo"
+path="res://.godot/imported/lynx.jpg-afcf1c9e602a2f5f03b87855b6b64a5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/Attack-01-Sheet.png"
-dest_files=["res://.godot/imported/Attack-01-Sheet.png-087f8c57419eb24941b1f634ae982532.ctex"]
+source_file="res://lynx.jpg"
+dest_files=["res://.godot/imported/lynx.jpg-afcf1c9e602a2f5f03b87855b6b64a5a.ctex"]
 
 [params]
 

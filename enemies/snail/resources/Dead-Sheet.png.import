@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1mjba3y0gvq8"
-path="res://.godot/imported/Jump-All-Sheet.png-cc4a9dbc0f1258d999b803e950f98c1f.ctex"
+uid="uid://c72ac30ge5nj1"
+path="res://.godot/imported/Dead-Sheet.png-80a458ea870417c693fc7569b248d01a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/Jump-All-Sheet.png"
-dest_files=["res://.godot/imported/Jump-All-Sheet.png-cc4a9dbc0f1258d999b803e950f98c1f.ctex"]
+source_file="res://enemies/snail/resources/Dead-Sheet.png"
+dest_files=["res://.godot/imported/Dead-Sheet.png-80a458ea870417c693fc7569b248d01a.ctex"]
 
 [params]
 

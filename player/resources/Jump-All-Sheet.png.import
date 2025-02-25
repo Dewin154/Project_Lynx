@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqsj3qj1gayqd"
-path="res://.godot/imported/Idle-Sheet.png-f11df7d8abc5cd8dba97a8d5d1012768.ctex"
+uid="uid://d1mjba3y0gvq8"
+path="res://.godot/imported/Jump-All-Sheet.png-4a4358599bd629b3105c590e9dd02bb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/Idle-Sheet.png"
-dest_files=["res://.godot/imported/Idle-Sheet.png-f11df7d8abc5cd8dba97a8d5d1012768.ctex"]
+source_file="res://player/resources/Jump-All-Sheet.png"
+dest_files=["res://.godot/imported/Jump-All-Sheet.png-4a4358599bd629b3105c590e9dd02bb0.ctex"]
 
 [params]
 

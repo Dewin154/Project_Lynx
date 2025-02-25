@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 const GRAVITY = 1000
@@ -27,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	player_run(delta)
 	player_jump(delta)
 	player_attack(delta)
-	player_dead(delta)
+	player_dead(delta) 
 	move_and_slide()
 	player_animations()
 	#print("State: ", State.keys()[current_state])
@@ -43,7 +44,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
-
+	
 func player_falling(delta):
 	velocity.y += GRAVITY * delta
 
@@ -110,4 +111,3 @@ func player_dead(delta):
 		is_dying = true
 		current_state = State.Dead
 		animated_sprite_2d.play("dead")
-		
