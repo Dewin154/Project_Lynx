@@ -13,3 +13,7 @@ func _physics_process(delta: float) -> void:
 
 func falling(delta: float):
 	velocity.y += GRAVITY * delta
+
+# Abstract function
+func take_damage(_damage: int) -> void:
+	push_error("Must be overridden in subclasses!")

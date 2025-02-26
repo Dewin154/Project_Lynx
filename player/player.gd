@@ -18,6 +18,7 @@ var fall_animation_already_playing = false
 var is_attacking = false
 var attack_combo_available = false
 var is_dying = false
+var can_deal_damage = true
 
 func _ready() -> void:
 	current_state = State.Idle
@@ -32,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	player_animations()
 	#print("State: ", State.keys()[current_state])
+	#print(can_deal_damage)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1":
@@ -41,6 +43,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			is_attacking = false
 	elif animated_sprite_2d.animation == "attack2":
 		is_attacking = false
+	can_deal_damage = true
+	
 
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
@@ -97,6 +101,7 @@ func player_attack(delta):
 	if Input.is_action_just_pressed("attack"):
 		if is_attacking and attack_combo_available:
 			animated_sprite_2d.play("attack2")
+			can_deal_damage = true
 			attack_combo_available = false
 		elif is_on_floor() and !is_attacking:
 			current_state = State.Attack
@@ -104,7 +109,7 @@ func player_attack(delta):
 			animated_sprite_2d.play("attack1")
 			attack_combo_available = true
 			attack_timer.start()
-			
+	
 func player_dead(delta):
 	# Numpad 9
 	if Input.is_action_just_pressed("die"):
