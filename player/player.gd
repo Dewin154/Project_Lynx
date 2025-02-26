@@ -33,19 +33,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	player_animations()
 	#print("State: ", State.keys()[current_state])
-	#print(can_deal_damage)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite_2d.animation == "attack1":
-		if attack_combo_available:
-			attack_combo_available = false
-		else:
-			is_attacking = false
-	elif animated_sprite_2d.animation == "attack2":
+	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
 		is_attacking = false
-	can_deal_damage = true
+		can_deal_damage = true
 	
-
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
 	
@@ -99,11 +92,11 @@ func player_jump(delta):
 
 func player_attack(delta):
 	if Input.is_action_just_pressed("attack"):
+		can_deal_damage = true
 		if is_attacking and attack_combo_available:
 			animated_sprite_2d.play("attack2")
-			can_deal_damage = true
 			attack_combo_available = false
-		elif is_on_floor() and !is_attacking:
+		elif is_on_floor():
 			current_state = State.Attack
 			is_attacking = true
 			animated_sprite_2d.play("attack1")
