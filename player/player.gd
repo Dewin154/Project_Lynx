@@ -88,7 +88,7 @@ func player_animations():
 			fall_animation_already_playing = true
 
 func player_jump(delta):
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and current_state != State.Attack:
 		current_state = State.Jump
 		velocity.y = JUMP
 	if !is_on_floor() and current_state == State.Jump:
