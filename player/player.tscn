@@ -369,7 +369,11 @@ script = ExtResource("8_w0gsn")
 wait_time = 0.15
 one_shot = true
 
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="SwordHitbox" to="SwordHitbox" method="_on_body_entered"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

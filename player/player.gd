@@ -9,6 +9,7 @@ const JUMP_HORIZONTAL = 100
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var coyote_timer: Timer = $CoyoteTimer
+@onready var jump_buffer_timer: Timer = $JumpBufferTimer
 
 enum State {Idle, Run, Jump, Fall, Attack, Dead}
 
@@ -22,6 +23,7 @@ var attack_combo_available = false
 var is_dying = false
 var can_deal_damage = true
 var coyote_available = false
+var jump_buffer = false
 
 func _ready() -> void:
 	current_state = State.Idle
@@ -36,7 +38,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	player_animations()
 	#print("State1: ", State.keys()[last_state])
-	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
@@ -49,8 +50,15 @@ func _on_attack_timer_timeout() -> void:
 func _on_coyote_timer_timeout() -> void:
 	coyote_available = false
 	
+func _on_jump_buffer_timer_timeout() -> void:
+	jump_buffer = false 
+	
 func player_falling(delta):
 	velocity.y += GRAVITY * delta
+	
+	if current_state == State.Fall and Input.is_action_just_pressed("jump"):
+		jump_buffer = true
+		jump_buffer_timer.start()
 	
 func player_idle(delta):
 	if is_on_floor() and !is_attacking and !is_dying:
@@ -64,11 +72,13 @@ func player_run(delta):
 		velocity.x = 0
 		return
 	direction = Input.get_axis("move_left", "move_right")
+	
 	if direction:
 		is_dying = false
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
 	if direction != 0:
 		animated_sprite_2d.flip_h = false if direction > 0 else true
 		if current_state != State.Jump:
@@ -90,14 +100,20 @@ func player_animations():
 func player_jump(delta):
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_available) and !is_attacking:
 		_jump()
+		
 	if !is_on_floor() and current_state == State.Jump:
 		velocity.x += direction * JUMP_HORIZONTAL * delta
+		
 	# Check if player ended jumping and is falling
 	if velocity.y >= 0 and !is_on_floor():
 		current_state = State.Fall
 		if last_state == State.Run:
 			coyote_available = true
 			coyote_timer.start()
+			
+	if is_on_floor() and jump_buffer:
+		_jump()
+		jump_buffer = false
 	
 func _jump():
 	current_state = State.Jump
