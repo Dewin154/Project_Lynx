@@ -23,7 +23,7 @@ var attack_combo_available = false
 var is_dying = false
 var can_deal_damage = true
 var coyote_available = false
-var jump_buffer = false
+var jump_buffer_available = false
 
 func _ready() -> void:
 	current_state = State.Idle
@@ -38,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	player_animations()
 	#print("State1: ", State.keys()[last_state])
+	print(fall_animation_already_playing)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
@@ -51,13 +52,13 @@ func _on_coyote_timer_timeout() -> void:
 	coyote_available = false
 	
 func _on_jump_buffer_timer_timeout() -> void:
-	jump_buffer = false 
+	jump_buffer_available = false 
 	
 func player_falling(delta):
 	velocity.y += GRAVITY * delta
 	
 	if current_state == State.Fall and Input.is_action_just_pressed("jump"):
-		jump_buffer = true
+		jump_buffer_available = true
 		jump_buffer_timer.start()
 	
 func player_idle(delta):
@@ -100,6 +101,7 @@ func player_animations():
 func player_jump(delta):
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_available) and !is_attacking:
 		_jump()
+		fall_animation_already_playing = false
 		
 	if !is_on_floor() and current_state == State.Jump:
 		velocity.x += direction * JUMP_HORIZONTAL * delta
@@ -111,9 +113,9 @@ func player_jump(delta):
 			coyote_available = true
 			coyote_timer.start()
 			
-	if is_on_floor() and jump_buffer:
+	if is_on_floor() and jump_buffer_available:
 		_jump()
-		jump_buffer = false
+		jump_buffer_available = false
 	
 func _jump():
 	current_state = State.Jump

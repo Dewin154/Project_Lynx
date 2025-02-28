@@ -366,7 +366,7 @@ shape = SubResource("RectangleShape2D_r2mk6")
 script = ExtResource("8_w0gsn")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
