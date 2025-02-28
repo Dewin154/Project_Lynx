@@ -8,10 +8,12 @@ const JUMP_HORIZONTAL = 100
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
+@onready var coyote_timer: Timer = $CoyoteTimer
 
 enum State {Idle, Run, Jump, Fall, Attack, Dead}
 
 var current_state
+var last_state
 var direction
 var jump_animation_already_playing = false
 var fall_animation_already_playing = false
@@ -19,6 +21,7 @@ var is_attacking = false
 var attack_combo_available = false
 var is_dying = false
 var can_deal_damage = true
+var coyote_available = false
 
 func _ready() -> void:
 	current_state = State.Idle
@@ -32,7 +35,8 @@ func _physics_process(delta: float) -> void:
 	player_dead(delta) 
 	move_and_slide()
 	player_animations()
-	#print("State: ", State.keys()[current_state])
+	#print("State1: ", State.keys()[last_state])
+	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
@@ -42,9 +46,12 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
 	
+func _on_coyote_timer_timeout() -> void:
+	coyote_available = false
+	
 func player_falling(delta):
 	velocity.y += GRAVITY * delta
-
+	
 func player_idle(delta):
 	if is_on_floor() and !is_attacking and !is_dying:
 		current_state = State.Idle
@@ -52,6 +59,7 @@ func player_idle(delta):
 		jump_animation_already_playing = false
 
 func player_run(delta):
+	last_state = current_state
 	if is_attacking:
 		velocity.x = 0
 		return
@@ -61,7 +69,6 @@ func player_run(delta):
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
 	if direction != 0:
 		animated_sprite_2d.flip_h = false if direction > 0 else true
 		if current_state != State.Jump:
@@ -81,14 +88,20 @@ func player_animations():
 			fall_animation_already_playing = true
 
 func player_jump(delta):
-	if Input.is_action_just_pressed("jump") and is_on_floor() and current_state != State.Attack:
-		current_state = State.Jump
-		velocity.y = JUMP
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_available) and !is_attacking:
+		_jump()
 	if !is_on_floor() and current_state == State.Jump:
 		velocity.x += direction * JUMP_HORIZONTAL * delta
 	# Check if player ended jumping and is falling
 	if velocity.y >= 0 and !is_on_floor():
 		current_state = State.Fall
+		if last_state == State.Run:
+			coyote_available = true
+			coyote_timer.start()
+	
+func _jump():
+	current_state = State.Jump
+	velocity.y = JUMP
 
 func player_attack(delta):
 	if Input.is_action_just_pressed("attack"):
