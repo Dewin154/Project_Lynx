@@ -542,3 +542,6 @@ editor_draw_drag_margin = true
 
 [node name="Snail1" parent="." instance=ExtResource("3_p8dko")]
 position = Vector2(-160, -186)
+
+[node name="Snail2" parent="." instance=ExtResource("3_p8dko")]
+position = Vector2(-327, -229)
