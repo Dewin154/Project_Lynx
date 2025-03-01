@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://ce1vnqak6koj"]
+[gd_scene load_steps=38 format=3 uid="uid://ce1vnqak6koj"]
 
 [ext_resource type="Texture2D" uid="uid://cf68f3xtljp5w" path="res://enemies/snail/resources/walk-Sheet.png" id="1_c32sw"]
 [ext_resource type="Script" path="res://enemies/snail/snail.gd" id="1_gur5q"]
 [ext_resource type="Texture2D" uid="uid://c72ac30ge5nj1" path="res://enemies/snail/resources/Dead-Sheet.png" id="2_g4fbr"]
 [ext_resource type="Texture2D" uid="uid://bn8tsng4os5vb" path="res://enemies/snail/resources/Hide-Sheet.png" id="4_5apac"]
+[ext_resource type="Script" path="res://enemies/snail/floor_ray_cast_2d.gd" id="5_a18q0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuakc"]
 size = Vector2(28, 20.5)
@@ -31,6 +32,38 @@ region = Rect2(240, 0, 48, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_sjv30"]
 atlas = ExtResource("2_g4fbr")
 region = Rect2(336, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05igw"]
+atlas = ExtResource("4_5apac")
+region = Rect2(336, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a50m7"]
+atlas = ExtResource("4_5apac")
+region = Rect2(288, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duxh2"]
+atlas = ExtResource("4_5apac")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cykb"]
+atlas = ExtResource("4_5apac")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwjhm"]
+atlas = ExtResource("4_5apac")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yspa"]
+atlas = ExtResource("4_5apac")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chkdt"]
+atlas = ExtResource("4_5apac")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqhsk"]
+atlas = ExtResource("4_5apac")
+region = Rect2(0, 0, 48, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vk5h6"]
 atlas = ExtResource("1_c32sw")
@@ -123,6 +156,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_05igw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a50m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duxh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cykb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwjhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yspa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chkdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqhsk")
+}],
+"loop": false,
+"name": &"leaving_protection",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vk5h6")
 }, {
 "duration": 1.0,
@@ -196,4 +258,15 @@ sprite_frames = SubResource("SpriteFrames_7xvle")
 animation = &"moving"
 autoplay = "moving"
 
+[node name="LeaveProtectionTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="FloorRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-12, 12)
+target_position = Vector2(0, 19)
+collision_mask = 2
+script = ExtResource("5_a18q0")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="LeaveProtectionTimer" to="." method="_on_leave_protection_timer_timeout"]

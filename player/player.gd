@@ -37,13 +37,11 @@ func _physics_process(delta: float) -> void:
 	player_dead(delta) 
 	move_and_slide()
 	player_animations()
-	#print("State1: ", State.keys()[last_state])
-	print(fall_animation_already_playing)
+	#print("State1: ", State.keys()[current_state])
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
 		is_attacking = false
-		can_deal_damage = true
 	
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
@@ -122,7 +120,7 @@ func _jump():
 	velocity.y = JUMP
 
 func player_attack(delta):
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and (current_state == State.Idle or current_state == State.Run):
 		can_deal_damage = true
 		if is_attacking and attack_combo_available:
 			animated_sprite_2d.play("attack2")
@@ -133,6 +131,7 @@ func player_attack(delta):
 			animated_sprite_2d.play("attack1")
 			attack_combo_available = true
 			attack_timer.start()
+	
 	
 func player_dead(delta):
 	# Numpad 9

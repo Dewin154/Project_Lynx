@@ -7,7 +7,7 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4fpe4"]
 texture = ExtResource("1_h3kkk")
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.625, 4.25, 8, 4.25, 8, 8, -6.5, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.625, 4.25, 8, 4, 8, 8, -6.5, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 4, 8, 4, 8, 8, -8, 8)
 2:0/0 = 0
@@ -15,7 +15,7 @@ texture = ExtResource("1_h3kkk")
 3:0/0 = 0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 4, 8, 4, 8, 8, -8, 8)
 4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.75, 1, 4, 6.125, 8, -8, 8)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 4, 1, 4, 6.125, 8, -8, 8)
 6:0/0 = 0
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1, 8, 8, 3.25, 8, 8)
 7:0/0 = 0
@@ -541,4 +541,4 @@ drag_right_margin = 0.1
 editor_draw_drag_margin = true
 
 [node name="Snail1" parent="." instance=ExtResource("3_p8dko")]
-position = Vector2(249, -160)
+position = Vector2(-160, -186)
