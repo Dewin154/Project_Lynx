@@ -120,7 +120,7 @@ func _jump():
 	velocity.y = JUMP
 
 func player_attack(delta):
-	if Input.is_action_just_pressed("attack") and (current_state == State.Idle or current_state == State.Run):
+	if Input.is_action_just_pressed("attack") and (current_state == State.Idle or current_state == State.Run or current_state == State.Attack):
 		can_deal_damage = true
 		if is_attacking and attack_combo_available:
 			animated_sprite_2d.play("attack2")
