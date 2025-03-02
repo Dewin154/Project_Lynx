@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	move()
 	#print("State1: ", State.keys()[current_state])
-	#print(health)
 	play_animations()
 	
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -64,16 +63,14 @@ func protecting_itself() -> void:
 	leave_protection_timer.start()
 	
 func move() -> void:
-	if !direction_right:
-		if velocity.x >= -30 and current_state != State.Dying and current_state != State.Protecting:
-			velocity.x -= 0.5
-		elif current_state == State.Protecting or current_state == State.Dying:
-				velocity.x = 0
-	else:
-		if velocity.x <= 30 and current_state != State.Dying and current_state != State.Protecting:
+	if current_state not in [State.Dying, State.Protecting]:
+		if direction_right and velocity.x <= 30:
 			velocity.x += 0.5
-		elif current_state == State.Protecting or current_state == State.Dying:
-			velocity.x = 0
+		elif not direction_right and velocity.x >= -30:
+			velocity.x -= 0.5
+			
+	if current_state == State.Protecting or current_state == State.Dying:
+		velocity.x = 0
 	
 	if !floor_raycast.is_colliding():
 		velocity.x = 0

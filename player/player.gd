@@ -4,18 +4,18 @@ extends CharacterBody2D
 const GRAVITY = 1000
 const SPEED = 300
 const JUMP = -500
-const JUMP_HORIZONTAL = 100
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
+@onready var sword_hitbox_collison_shape: CollisionShape2D = $SwordHitbox/CollisionShape2D
 
 enum State {Idle, Run, Jump, Fall, Attack, Dead}
 
 var current_state
 var last_state
-var direction
+var direction #-1,0,1
 var jump_animation_already_playing = false
 var fall_animation_already_playing = false
 var is_attacking = false
@@ -30,42 +30,49 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	player_falling(delta)
-	player_idle(delta)
-	player_run(delta)
+	player_idle()
+	player_run()
 	player_jump(delta)
-	player_attack(delta)
-	player_dead(delta) 
+	player_attack()
+	player_dead() 
 	move_and_slide()
 	player_animations()
 	#print("State1: ", State.keys()[current_state])
 
+# Signal to stop attacking animation after timeout
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
 		is_attacking = false
-	
+
+# Signal to disable the 2nd attack after timeout
 func _on_attack_timer_timeout() -> void:
 	attack_combo_available = false
 	
+# Signal to disable the availability of coyote time after timeout
 func _on_coyote_timer_timeout() -> void:
 	coyote_available = false
 	
+# Signal to disable the availability of jump buffer after timeout
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffer_available = false 
-	
+
+# Handles falling and jump buffer with applying gravity to the player
 func player_falling(delta):
 	velocity.y += GRAVITY * delta
 	
 	if current_state == State.Fall and Input.is_action_just_pressed("jump"):
 		jump_buffer_available = true
 		jump_buffer_timer.start()
-	
-func player_idle(delta):
+		
+# Handles idling of the player
+func player_idle():
 	if is_on_floor() and !is_attacking and !is_dying:
 		current_state = State.Idle
 		fall_animation_already_playing = false
 		jump_animation_already_playing = false
 
-func player_run(delta):
+# Handles player running and flipping the sprite
+func player_run():
 	last_state = current_state
 	if is_attacking:
 		velocity.x = 0
@@ -79,10 +86,12 @@ func player_run(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	if direction != 0:
+		sword_hitbox_collison_shape.flip_hitbox(direction)
 		animated_sprite_2d.flip_h = false if direction > 0 else true
 		if current_state != State.Jump:
 			current_state = State.Run
 
+# Handles player animations based on current state
 func player_animations():
 	if !is_attacking and !is_dying:
 		if current_state == State.Idle:
@@ -96,14 +105,12 @@ func player_animations():
 			animated_sprite_2d.play("fall")
 			fall_animation_already_playing = true
 
+# Handles jumping, falling, coyote time and jump buffer
 func player_jump(delta):
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_available) and !is_attacking:
 		_jump()
 		fall_animation_already_playing = false
-		
-	if !is_on_floor() and current_state == State.Jump:
-		velocity.x += direction * JUMP_HORIZONTAL * delta
-		
+	
 	# Check if player ended jumping and is falling
 	if velocity.y >= 0 and !is_on_floor():
 		current_state = State.Fall
@@ -114,12 +121,14 @@ func player_jump(delta):
 	if is_on_floor() and jump_buffer_available:
 		_jump()
 		jump_buffer_available = false
-	
+		
+# Handles actual jump
 func _jump():
 	current_state = State.Jump
 	velocity.y = JUMP
-
-func player_attack(delta):
+	
+# Handles attacks of the player
+func player_attack():
 	if Input.is_action_just_pressed("attack") and (current_state == State.Idle or current_state == State.Run or current_state == State.Attack):
 		can_deal_damage = true
 		if is_attacking and attack_combo_available:
@@ -131,9 +140,9 @@ func player_attack(delta):
 			animated_sprite_2d.play("attack1")
 			attack_combo_available = true
 			attack_timer.start()
-	
-	
-func player_dead(delta):
+
+# Handles player dying, for now just demonstration purposes
+func player_dead():
 	# Numpad 9
 	if Input.is_action_just_pressed("die"):
 		is_dying = true

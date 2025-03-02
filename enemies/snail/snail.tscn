@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://enemies/snail/floor_ray_cast_2d.gd" id="5_a18q0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuakc"]
-size = Vector2(28, 20.5)
+size = Vector2(26, 20.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2xs5"]
 atlas = ExtResource("2_g4fbr")
@@ -250,7 +250,7 @@ platform_floor_layers = 4294901760
 script = ExtResource("1_gur5q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 5.75)
+position = Vector2(0, 5.75)
 shape = SubResource("RectangleShape2D_nuakc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
