@@ -13,7 +13,7 @@
 ## How to Play
 1. Clone the repository:
    ```sh
-   [git clone https://github.com/Dewin154/Project_Lynx.git]
+   git clone https://github.com/Dewin154/Project_Lynx.git
 
 2. Open the project in Godot Engine.
 
