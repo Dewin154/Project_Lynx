@@ -13,6 +13,7 @@ enum State {Moving, Dying, Protecting, Leaving_Protection}
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var leave_protection_timer: Timer = $LeaveProtectionTimer
 @onready var floor_raycast: RayCast2D = $FloorRayCast2D
+@onready var healthbar: TextureProgressBar = $Healthbar
 
 func _ready() -> void:
 	current_state = State.Moving
@@ -52,6 +53,7 @@ func take_damage(damage: int) -> void:
 	Input.start_joy_vibration(0,0.5,0.5,0.3) # Controller vibration for some haptic feedback
 	if !is_protecting:
 		health -= damage
+		healthbar.value -= damage
 	protecting_itself() # Indent or Unindent for different behaviour
 	if health <= 0:
 		current_state = State.Dying

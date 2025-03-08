@@ -4,15 +4,18 @@ extends CharacterBody2D
 const GRAVITY = 1000
 const SPEED = 300
 const JUMP = -500
+const BASE_HEALTH = 100
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var sword_hitbox_collison_shape: CollisionShape2D = $SwordHitbox/CollisionShape2D
+@onready var healthbar: TextureProgressBar = $"../CanvasLayerPlayerHUD/Healthbar"
 
 enum State {Idle, Run, Jump, Fall, Attack, Dead}
 
+var health = BASE_HEALTH
 var current_state
 var last_state
 var direction #-1,0,1
@@ -34,9 +37,9 @@ func _physics_process(delta: float) -> void:
 	player_run()
 	player_jump(delta)
 	player_attack()
-	player_dead() 
 	move_and_slide()
 	player_animations()
+
 	#print("State1: ", State.keys()[current_state])
 
 # Signal to stop attacking animation after timeout
@@ -72,7 +75,7 @@ func player_idle():
 		jump_animation_already_playing = false
 
 # Handles player running and flipping the sprite
-func player_run():
+func player_run() -> void:
 	last_state = current_state
 	if is_attacking:
 		velocity.x = 0
@@ -91,7 +94,7 @@ func player_run():
 		if current_state != State.Jump:
 			current_state = State.Run
 
-# Handles player animations based on current state
+# Handles basic player animations based on current state
 func player_animations():
 	if !is_attacking and !is_dying:
 		if current_state == State.Idle:
@@ -127,7 +130,7 @@ func _jump():
 	current_state = State.Jump
 	velocity.y = JUMP
 	
-# Handles attacks of the player
+# Handles attacks of the player with animation
 func player_attack():
 	if Input.is_action_just_pressed("attack") and (current_state == State.Idle or current_state == State.Run or current_state == State.Attack):
 		can_deal_damage = true
@@ -141,10 +144,15 @@ func player_attack():
 			attack_combo_available = true
 			attack_timer.start()
 
-# Handles player dying, for now just demonstration purposes
+#Handles player taking damage from enemies 
+func player_take_damage(damage: float) -> void:
+	health -= damage
+	healthbar.value -= damage
+	if health <= 0 and current_state != State.Dead:
+		player_dead()
+
+# Handles player dying with animation, for now just demonstration purposes
 func player_dead():
-	# Numpad 9
-	if Input.is_action_just_pressed("die"):
 		is_dying = true
 		current_state = State.Dead
 		animated_sprite_2d.play("dead")

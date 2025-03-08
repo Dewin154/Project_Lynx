@@ -1,8 +1,8 @@
 class_name AbstractEnemies
 extends CharacterBody2D
 
-const GRAVITY = 1000
-const SPEED = 300
+const GRAVITY: int = 1000
+const SPEED: int = 300
 
 func _ready() -> void:
 	pass

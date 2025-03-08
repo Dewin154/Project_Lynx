@@ -1,13 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://ce1vnqak6koj"]
+[gd_scene load_steps=40 format=3 uid="uid://ce1vnqak6koj"]
 
 [ext_resource type="Texture2D" uid="uid://cf68f3xtljp5w" path="res://enemies/snail/resources/walk-Sheet.png" id="1_c32sw"]
 [ext_resource type="Script" path="res://enemies/snail/snail.gd" id="1_gur5q"]
 [ext_resource type="Texture2D" uid="uid://c72ac30ge5nj1" path="res://enemies/snail/resources/Dead-Sheet.png" id="2_g4fbr"]
 [ext_resource type="Texture2D" uid="uid://bn8tsng4os5vb" path="res://enemies/snail/resources/Hide-Sheet.png" id="4_5apac"]
 [ext_resource type="Script" path="res://enemies/snail/floor_ray_cast_2d.gd" id="5_a18q0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuakc"]
-size = Vector2(26, 20.5)
+[ext_resource type="Texture2D" uid="uid://dwl5fqv5ahw2i" path="res://graphics/HUD/health_enemy.png" id="6_ywhb0"]
+[ext_resource type="Texture2D" uid="uid://d3wtrcdymscmn" path="res://graphics/HUD/healthbar.png" id="7_1pgfw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2xs5"]
 atlas = ExtResource("2_g4fbr")
@@ -242,6 +241,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuakc"]
+size = Vector2(26, 20.5)
+
 [node name="Snail" type="CharacterBody2D"]
 position = Vector2(134, -71)
 collision_layer = 2
@@ -249,14 +251,14 @@ collision_mask = 2
 platform_floor_layers = 4294901760
 script = ExtResource("1_gur5q")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.75)
-shape = SubResource("RectangleShape2D_nuakc")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7xvle")
 animation = &"moving"
 autoplay = "moving"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.75)
+shape = SubResource("RectangleShape2D_nuakc")
 
 [node name="LeaveProtectionTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -267,6 +269,21 @@ position = Vector2(-12, 12)
 target_position = Vector2(0, 19)
 collision_mask = 2
 script = ExtResource("5_a18q0")
+
+[node name="Healthbar" type="TextureProgressBar" parent="."]
+offset_left = -18.0
+offset_top = -15.0
+offset_right = 18.0
+offset_bottom = -11.0
+max_value = 30.0
+value = 30.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_ywhb0")
+
+[node name="HealthbarBorder" type="Sprite2D" parent="."]
+position = Vector2(2.29478e-06, -13)
+scale = Vector2(0.62069, 1)
+texture = ExtResource("7_1pgfw")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="LeaveProtectionTimer" to="." method="_on_leave_protection_timer_timeout"]
