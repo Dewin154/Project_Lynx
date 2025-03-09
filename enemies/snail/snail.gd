@@ -17,10 +17,12 @@ enum State {Moving, Dying, Protecting, Leaving_Protection}
 
 func _ready() -> void:
 	current_state = State.Moving
+	healthbar.max_value = health
+	healthbar.value = health
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	move()
+	move(delta)
 	#print("State1: ", State.keys()[current_state])
 	play_animations()
 	
@@ -64,7 +66,7 @@ func protecting_itself() -> void:
 	leaving_protection_animation_already_playing = false
 	leave_protection_timer.start()
 	
-func move() -> void:
+func move(delta: float) -> void:
 	if current_state not in [State.Dying, State.Protecting]:
 		if direction_right and velocity.x <= 30:
 			velocity.x += 0.5

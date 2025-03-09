@@ -20,7 +20,7 @@ func take_damage(_damage: int) -> void:
 	push_error("take_damage() must be overridden in subclasses!")
 	
 # Abstract function
-func move() -> void:
+func move(delta: float) -> void:
 	push_error("move() must be overridden in subclasses!")
 
 # Abstract function

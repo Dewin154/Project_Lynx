@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cvhm6y8awvn1r"]
+[gd_scene load_steps=11 format=4 uid="uid://cvhm6y8awvn1r"]
 
 [ext_resource type="Texture2D" uid="uid://1el8kt6hxtxb" path="res://graphics/forest/Tiles.png" id="1_o3lbo"]
 [ext_resource type="PackedScene" uid="uid://c88fon6gvv731" path="res://player/player.tscn" id="2_q0br0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://s7g8xqmufijd" path="res://graphics/HUD/player_health.png" id="5_vt3ck"]
 [ext_resource type="Texture2D" uid="uid://i0go1lnnqldj" path="res://graphics/HUD/player_health_border.png" id="6_hg4k8"]
 [ext_resource type="Texture2D" uid="uid://dwl5fqv5ahw2i" path="res://graphics/HUD/health_enemy.png" id="7_l2hid"]
+[ext_resource type="PackedScene" uid="uid://c4ig87q4vy1ni" path="res://enemies/bee/bee.tscn" id="8_lit4m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4fpe4"]
 texture = ExtResource("1_o3lbo")
@@ -552,7 +553,6 @@ position = Vector2(-32, 124)
 position = Vector2(-199, 81)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(6480, 0)
@@ -584,3 +584,6 @@ value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("7_l2hid")
 metadata/_edit_use_anchors_ = true
+
+[node name="Bee" parent="." instance=ExtResource("8_lit4m")]
+position = Vector2(173, 165)
