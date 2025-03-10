@@ -59,7 +59,13 @@ func _physics_process(delta: float) -> void:
 
 # Signal to stop attacking animation after timeout
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite_2d.animation == "attack1" or animated_sprite_2d.animation == "attack2":
+	if animated_sprite_2d.animation == "attack1":
+		if attack_combo_available:
+			animated_sprite_2d.play("attack2")
+			attack_combo_available = false
+		else:
+			is_attacking = false
+	elif animated_sprite_2d.animation == "attack2":
 		is_attacking = false
 
 # Signal to disable the 2nd attack after timeout
