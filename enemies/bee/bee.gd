@@ -4,7 +4,7 @@ extends AbstractEnemies
 enum State {Fly, Attack, Hit}
 
 var health = 40
-
+var temp = 0
 
 
 # Called when the node enters the scene tree for the first time.
