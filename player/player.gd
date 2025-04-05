@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "attack1":
 		if attack_combo_available:
-			animated_sprite_2d.play("attack2")
+			animated_sprite_2d.play("attack2") # 1st Handling of attack2 Animation
 			attack_combo_available = false
 		else:
 			is_attacking = false
@@ -162,7 +162,7 @@ func player_attack():
 		use_stamina(light_attack)
 		stamina_refill_timer.start()
 		if is_attacking and attack_combo_available:
-			animated_sprite_2d.play("attack2")
+			animated_sprite_2d.play("attack2") # 2nd Handling of attack2 Animation, redundancy? Otherwise it doesn't work
 			attack_combo_available = false
 		elif is_on_floor():
 			animated_sprite_2d.play("attack1")
@@ -178,7 +178,7 @@ func player_take_damage(damage: float) -> void:
 	if health <= 0 and current_state != State.Dead:
 		player_dead()
 
-# Handles player dying with animation, for now just demonstration purposes
+# Handles player dying with animation
 func player_dead():
 		is_dying = true
 		current_state = State.Dead

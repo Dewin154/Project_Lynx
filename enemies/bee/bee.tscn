@@ -113,7 +113,7 @@ height = 21.2555
 
 [node name="Bee" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 4
 script = ExtResource("1_swn2f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
