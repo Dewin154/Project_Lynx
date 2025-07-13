@@ -9,7 +9,7 @@
 ## Development Timeline
 - **Codename**: Project Lynx
 - **Start Date**: 01.02.2025
-- ❗**Development Paused since**: 05.04.2025
+- ❗ **Development paused since**: 05.04.2025
 
 
 ## How to Play
