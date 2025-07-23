@@ -6,12 +6,6 @@
 - **Pixel-Art Graphics**
 - **Godot Engine**
 
-## Development Timeline
-- **Codename**: Project Lynx
-- **Start Date**: 01.02.2025
-- ❗ **Development paused since**: 05.04.2025
-
-
 ## How to Play
 1. Clone the repository:
    ```sh
@@ -20,3 +14,12 @@
 2. Open the project in Godot Engine.
 
 3. Run the game!
+
+## Development Timeline
+- **Codename**: Project Lynx
+- **Start Date**: 01.02.2025
+- ❗ **Development paused since**: 05.04.2025
+<img width="1400" height="200" alt="grafik" src="https://github.com/user-attachments/assets/6d77535c-2dc8-49c9-9ee2-31dcdc2e988c" />
+
+
+
