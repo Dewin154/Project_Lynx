@@ -144,7 +144,7 @@ func player_jump(delta):
 		if last_state == State.Run:
 			coyote_available = true
 			coyote_timer.start()
-			
+	
 	if is_on_floor() and jump_buffer_available:
 		_jump()
 		jump_buffer_available = false

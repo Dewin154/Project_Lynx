@@ -118,11 +118,16 @@ script = ExtResource("1_swn2f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kw4re")
-animation = &"fly"
+animation = &"attack"
 autoplay = "fly"
-frame_progress = 0.868154
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.19209e-07, 1)
 rotation = -0.830777
 shape = SubResource("CapsuleShape2D_63eil")
+
+[node name="ReverseMovementTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="ReverseMovementTimer" to="." method="_on_reverse_movement_timer_timeout"]
