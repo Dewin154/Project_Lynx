@@ -548,10 +548,10 @@ drag_right_margin = 0.1
 editor_draw_drag_margin = true
 
 [node name="Snail1" parent="." instance=ExtResource("3_hhs8i")]
-position = Vector2(-32, 124)
+position = Vector2(8, 101)
 
 [node name="Snail2" parent="." instance=ExtResource("3_hhs8i")]
-position = Vector2(-199, 81)
+position = Vector2(-214, 78)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -559,7 +559,7 @@ position = Vector2(-199, 81)
 motion_mirroring = Vector2(6480, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-2416, -3266)
+position = Vector2(-2392, -3349)
 scale = Vector2(13.4979, 13.9228)
 texture = ExtResource("4_3ii68")
 centered = false
@@ -605,4 +605,5 @@ nine_patch_stretch = true
 texture_progress = ExtResource("8_nkpr3")
 
 [node name="Bee" parent="." instance=ExtResource("8_lit4m")]
-position = Vector2(173, 165)
+position = Vector2(413, 210)
+rotation = 0.0932188
