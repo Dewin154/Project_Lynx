@@ -556,6 +556,7 @@ position = Vector2(-214, 78)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 motion_mirroring = Vector2(6480, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
@@ -605,5 +606,5 @@ nine_patch_stretch = true
 texture_progress = ExtResource("8_nkpr3")
 
 [node name="Bee" parent="." instance=ExtResource("8_lit4m")]
-position = Vector2(413, 210)
+position = Vector2(421, 112)
 rotation = 0.0932188
