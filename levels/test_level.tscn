@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cvhm6y8awvn1r"]
+[gd_scene load_steps=13 format=4 uid="uid://cvhm6y8awvn1r"]
 
 [ext_resource type="Texture2D" uid="uid://1el8kt6hxtxb" path="res://graphics/forest/Tiles.png" id="1_o3lbo"]
 [ext_resource type="PackedScene" uid="uid://c88fon6gvv731" path="res://player/player.tscn" id="2_q0br0"]
@@ -530,6 +530,12 @@ texture = ExtResource("1_o3lbo")
 physics_layer_0/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_4fpe4")
 
+[sub_resource type="Curve2D" id="Curve2D_15brk"]
+_data = {
+"points": PackedVector2Array(-42.0475, 122.805, 42.0475, -122.805, 295, 42, -28.6598, -7.34162, 28.6598, 7.34162, 444, -41, -20.0962, -60.0678, 20.0962, 60.0678, 568, 66, 79.715, -16.6855, -79.715, 16.6855, 457, 179, -16.7468, 136.154, 16.7468, -136.154, 295, 42, 0, 0, 0, 0, 295, 42)
+}
+point_count = 6
+
 [node name="Level" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -605,6 +611,16 @@ value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("8_nkpr3")
 
-[node name="Bee" parent="." instance=ExtResource("8_lit4m")]
-position = Vector2(421, 112)
-rotation = 0.0932188
+[node name="Bee1" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("8_lit4m")]
+position = Vector2(466.193, 231.345)
+rotation = 0.00303647
+path_follow = NodePath("../Path1/PathFollow1")
+
+[node name="Path1" type="Path2D" parent="."]
+position = Vector2(85.1933, 110.572)
+scale = Vector2(0.996337, 0.666844)
+curve = SubResource("Curve2D_15brk")
+
+[node name="PathFollow1" type="PathFollow2D" parent="Path1"]
+position = Vector2(295, 42)
+rotation = -1.24092

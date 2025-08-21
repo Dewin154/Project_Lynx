@@ -1,15 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4ig87q4vy1ni"]
+[gd_scene load_steps=19 format=3 uid="uid://c4ig87q4vy1ni"]
 
 [ext_resource type="Script" path="res://enemies/bee/bee.gd" id="1_swn2f"]
 [ext_resource type="Texture2D" uid="uid://me25c1n8x85d" path="res://enemies/bee/resources/Attack-Sheet.png" id="2_ohhyi"]
 [ext_resource type="Texture2D" uid="uid://bi0agy5csbycy" path="res://enemies/bee/resources/Fly-Sheet.png" id="3_pw5uf"]
 [ext_resource type="Texture2D" uid="uid://cm4jds4amqoy7" path="res://enemies/bee/resources/Hit-Sheet.png" id="4_yf2uo"]
-
-[sub_resource type="Curve2D" id="Curve2D_pxsll"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 17, -61, 0, 0, 0, 0, 126, -82, 0, 0, 0, 0, 168, 49, 0, 0, 0, 0, 81, 132, 0, 0, 0, 0, -138, 121, 0, 0, 0, 0, -303, -22, 0, 0, 0, 0, -239, -81, 0, 0, 0, 0, -117, -125, 0, 0, 0, 0, -32, -156, 0, 0, 0, 0, -41, -97, 0, 0, 0, 0, 17, -60)
-}
-point_count = 11
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_63eil"]
 radius = 9.54181
@@ -121,14 +115,6 @@ animations = [{
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_swn2f")
-
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-1, -3)
-curve = SubResource("Curve2D_pxsll")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(17, -61)
-rotates = false
 
 [node name="BeeHitbox2D" type="CollisionShape2D" parent="."]
 position = Vector2(18, -65)
